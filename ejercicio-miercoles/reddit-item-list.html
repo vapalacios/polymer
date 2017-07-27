@@ -1,0 +1,51 @@
+<dom-module id="reddit-item-list">
+    <style>
+        div {
+            background-color: thistle;
+            cursor: pointer;
+            display: inline-block;
+            font-size: smaller;
+            width: 40%;
+            border-radius: 10px 10px 10px 10px;
+            border: 0px solid #000000;
+            margin: 10px 0px;
+        }
+
+    </style>
+    <template>
+        
+        <template is="dom-repeat" items="[[reddits]]" as="reddit">
+            <div on-tap="_fireClick">
+                <p>Autor: <span>[[reddit.author]]</span></p>
+                <p>Titulo: <span>[[reddit.title]]</span></p> 
+                <p>Subreddit: <span>[[reddit.subreddit]]</span></p>
+            </div>
+        </template>
+    <template is="dom-if" if="[[!reddits]]">
+            <div>
+                <p>No hay items a listar.</p>
+            </div>
+        </template>
+    </template>
+    <script>
+        Polymer({
+            is: "reddit-item-list",
+            properties: {
+                reddits: {
+                    type: Array,
+                    value: []
+                },
+                name: {
+                    type: String,
+                    value: function() {
+                        return "Lista";
+                    }
+                }
+            },
+            _fireClick: function(event) {
+                this.fire("muestra-detalle", event.model.reddit);
+            }
+        });
+
+    </script>
+</dom-module>

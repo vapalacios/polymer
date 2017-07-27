@@ -1,0 +1,30 @@
+<dom-module id="reddit-input-item">
+    <style>
+        input {
+            padding: 8px;
+            display: inline-block;
+            border: none;
+            width: 30%;
+            border-radius: 4px;
+        }
+
+    </style>
+    <template>
+        <div>
+            <label>Filtro</label>
+            <input id="inp" value="{{str::input}}" placeholder="Palabra a buscar" autofocus>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            is: "reddit-input-item",
+            properties: {
+                str: {
+                    type: String,
+                    notify: true
+                }
+            }
+        });
+
+    </script>
+</dom-module>

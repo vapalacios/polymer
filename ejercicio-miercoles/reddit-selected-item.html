@@ -1,0 +1,47 @@
+<dom-module id="reddit-selected-item">
+    <style>
+        div{
+            background-color: thistle;
+            cursor: pointer;
+            margin: 10px 0px 10px 0px;
+            border-radius: 10px 10px 10px 10px;
+            border: 0px solid #000000;
+            width: 50%;
+        }
+        #mensaje{
+            vertical-align: middle;
+        }
+    </style>
+    <template>
+        <template is="dom-if" if="[[detalle]]">
+            <h2 on-tap="_updateList">Reddit Seleccionado</h2>
+            <div id="det">
+                <p>Autor: <span>[[detalle.author]]</span></p>
+                <p>Titulo: <span>[[detalle.title]]</span></p> 
+                <p>Subreddit: <span>[[reddit.subreddit]]</span></p>
+                <p>Ups: <span>[[detalle.ups]]</span></p>
+                <p>Downs: <span>[[detalle.downs]]</span></p> 
+                <p>Url: <span>[[detalle.url]]</span></p>
+            </div>
+        </template>
+        <template is="dom-if" if="[[!detalle]]">
+            <div>
+                <p id="mensaje">No hay reddit seleccionado.</p>
+            </div>
+        </template>
+    </template>
+    <script>
+        Polymer({
+            is: "reddit-selected-item",
+            properties: {
+                detalle: {
+                    type: Array,
+                    value: null
+                }
+            },
+            _updateList(){
+                this.detalle = null;
+            }
+        });
+    </script>
+</dom-module>

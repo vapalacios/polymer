@@ -1,0 +1,40 @@
+<link rel="import" href="reddit-input-item.html">
+
+<dom-module id="reddit-clone-header">
+    <style>
+        #count {
+            text-align: right;
+        }
+        
+        span {
+            background-color: thistle;
+        }
+
+    </style>
+    <template>
+        <h1>[[title]]</h1>
+        <div id="count">
+            <span>Reddits recibidos: </span>
+            <span>[[filtrado]]/[[longitud]]</span>
+        </div>
+        <reddit-input-item id="str-filter"></reddit-input-item>
+    </template>
+    <script>
+        Polymer({
+            is: "reddit-clone-header",
+            properties: {
+                title: {
+                    type: String,
+                    value: "Reddit List"
+                }
+            },
+            listeners: {
+                'str-filter.str-changed': '_fireString'
+            },
+            _fireString: function(event) {
+                this.fire("filter-ready", event.detail.value);
+            }
+        });
+
+    </script>
+</dom-module>

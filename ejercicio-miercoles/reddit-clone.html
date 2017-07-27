@@ -1,0 +1,61 @@
+<link rel="import" href="reddit-clone-dm.html">
+<link rel="import" href="reddit-clone-header.html">
+<link rel="import" href="reddit-item-list.html">
+<link rel="import" href="reddit-selected-item.html">
+
+<dom-module id="reddit-clone">
+    <template>
+        <reddit-clone-header longitud="[[reddits.length]]" filtrado="[[filteredDataToShow.length]]" id="theHeader"></reddit-clone-header>
+        <reddit-selected-item detalle="[[rDetails]]"></reddit-selected-item>
+        <reddit-item-list reddits="[[filteredDataToShow]]" id="redditList"></reddit-item-list>
+        <reddit-clone-dm id="dManager"></reddit-clone-dm>
+    </template>
+    <script>
+        Polymer({
+            is: "reddit-clone",
+            properties: {
+                reddits: {
+                    type: Array,
+                    value: []
+                },
+                rDetails: {
+                    type: Array,
+                    value: null
+                },
+                stringFilterData: {
+                    type: String,
+                    value: ''
+                },
+                filteredDataToShow: {
+                    type: Array,
+                    computed: '_filterReddits(reddits, stringFilterData)'
+                }
+            },
+            attached: function() {
+                this.$.dManager._getDataLoad();
+            },
+            listeners: {
+                'dManager.list': '_redditToShow',
+                'redditList.muestra-detalle': '_selectedToShow',
+                'theHeader.filter-ready': '_toFilter'
+            },
+            _redditToShow: function(event) {
+                this.reddits = event.detail;
+            },
+            _selectedToShow: function(event) {
+                this.rDetails = event.detail;
+            },
+            _filterReddits: function(reddits, stringFilterData) {
+                if (!stringFilterData) {
+                    return reddits;
+                }
+
+                return reddits.filter((x) => x.author.toLowerCase().includes(stringFilterData.toLowerCase()));
+            },
+            _toFilter(event) {
+                this.stringFilterData = event.detail;
+            }
+        });
+
+    </script>
+</dom-module>
