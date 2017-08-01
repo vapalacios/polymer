@@ -1,0 +1,95 @@
+<dom-module id="reddit-loader">
+    <template>
+        <style include="reddit-loader-shared-styles">
+            .loader {
+                position: var(--reddit-loader-attr-position, var(--default-attr-position, absolute));
+                
+                left: var(--reddit-loader-attr-left, var(--default-attr-left, 50%));
+                
+                top: var(--reddit-loader-attr-top, var(--default-attr-top, 50%));
+                
+                z-index: var(--reddit-loader-attr-z-index, var(--default-attr-z-index, 1));
+                
+                width: var(--reddit-loader-attr-width, var(--default-attr-width, 150px));
+                
+                height: var(--reddit-loader-attr-height, var(--default-attr-height, 150px));
+                
+                margin: var(--reddit-loader-attr-margin, var(--default-attr-margin, -75px 0 0 -75px));
+                
+                border: var(--reddit-loader-attr-border, var(--default-attr-border, 16px solid #f3f3f3));
+                    
+                border-radius: var(--reddit-loader-attr-border-radius, var(--default-attr-border-radius, 50%));
+                
+                border-top: var(--reddit-loader-attr-border-top, var(--default-attr-border-top, 16px solid #3498db));
+                
+                width: var(--reddit-loader-attr-width, var(--default-attr-width, 120px));
+                
+                height: var(--reddit-loader-attr-height, var(--default-attr-height, 120px));
+                
+                animation: var(--reddit-loader-attr-animation, var(--default-attr-animation, spin 2s linear infinite));
+                
+                @apply(reddit-loader-class-lodaer);
+            }
+
+            @-webkit-keyframes spin {
+                0% { -webkit-transform: rotate(0deg); }
+                
+                100% { -webkit-transform: rotate(360deg); }
+                
+                @apply(reddit-loader-class-webkit-keyframes);
+            }
+
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                
+                100% { transform: rotate(360deg); }
+                
+                @apply(reddit-loader-class-webkit);
+            }
+            
+            div#container {
+                position: var(--reddit-loader-position, var(--default-position, fixed));
+                
+                width: var(--reddit-loader-width, var(--default-width, 100%));
+                
+                height: var(--reddit-loader-height, var(--default-height, 100%));
+                
+                top: var(--reddit-loader-top, var(--default-top, 0));
+                
+                left: var(--reddit-loader-left, var(--default-left, 0));
+                
+                right: var(--reddit-loader-right, var(--default-right, 0));
+                
+                bottom: var(--reddit-loader-bottom, var(--default-bottom, 0));
+                
+                background-color: var(--reddit-loader-background-color, var(--default-background-color, rgba(0,0,0,0.5)));
+                
+                z-index: var(--reddit-loader-z-index, var(--default-z-index, 2));
+                
+                cursor: var(--reddit-loader-cursor, var(--default-cursor, pointer));
+                
+                @apply(reddit-loader-div-container);
+            }
+        </style>
+        <div id="container">
+            <div class="loader"></div>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            is: "reddit-loader",
+            properties: {
+                hidden: {
+                    type: Boolean,
+                    reflectToAttribute: true
+                }
+            },
+            show: function() {
+                this.hidden = false;
+            },
+            hide: function() {
+                this.hidden = true;
+            }
+        });
+    </script>
+</dom-module>

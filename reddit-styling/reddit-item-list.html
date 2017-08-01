@@ -1,0 +1,77 @@
+<link rel="import" href="reddit-base-info.html">
+
+<dom-module id="reddit-item-list">
+    <template>
+        <style include="reddit-item-list-shared-styles">
+            div {
+                font-family: var(--reddit-item-list-font-family, var(--default-font-family, cursive));
+                
+                font-size: var(--reddit-item-list-font-size, var(--default-font-size, 16px));
+                
+                background-color: var(--reddit-item-list-background-color, var(--default-background-color, thistle));
+                
+                cursor: var(--reddit-item-list-cursor, var(--default-cursor, pointer));
+                
+                display: var(--reddit-item-list-display, var(--default-display, inline-block));
+                
+                font-size: var(--reddit-item-list-font-size, var(--default-font-size, smaller));
+                
+                width: var(--reddit-item-list-width, var(--default-width, 40%));
+                
+                border-radius: var(--reddit-item-list-border-radius, var(--default-border-radius, 10px 10px 10px 10px));
+                
+                border: var(--reddit-item-list-border, var(--default-border, 0px solid #000000));
+                
+                margin: var(--reddit-item-list-margin, var(--default-margin, 10px 0px));
+                
+                @apply(reddit-item-list-div);
+            }
+            
+            div#noList {
+                position: var(--reddit-item-list-position, var(--default-position, relative));
+                
+                box-shadow: var(--reddit-item-list-box-shadow, var(--default-box-shadow, 1px 2px 4px rgba(0, 0, 0, .5)));
+                
+                padding: var(--reddit-item-list-padding, var(--default-padding, 10px));
+                
+                border-radius: var(--reddit-item-list-border-radius, var(--default-border-radius, 10px 10px 10px 10px));
+                
+                background-color: var(--reddit-item-list-empty-background-color, var(--default-empty-background-color, moccasin));
+                
+                @apply(reddit-item-list-div-no-list);
+            }
+
+        </style>
+        <template is="dom-repeat" items="[[reddits]]" as="reddit">
+            <div on-tap="_fireClick">
+                <reddit-base-info author="[[reddit.author]]" title="[[reddit.title]]" subreddit="[[reddit.subreddit]]" class="shadow"></reddit-base-info>
+            </div>
+        </template>
+        <template is="dom-if" if="[[!longitud]]">
+            <div id="noList">
+                <p>No hay items a listar.</p>
+            </div>
+        </template>
+    </template>
+    <script>
+        Polymer({
+            is: "reddit-item-list",
+            properties: {
+                reddits: {
+                    type: Array,
+                    value: []
+                },
+                name: {
+                    type: String,
+                    value: function() {
+                        return "Lista";
+                    }
+                }
+            },
+            _fireClick: function(event) {
+                this.fire("muestra-detalle", event.model.reddit);
+            }
+        });
+
+    </script>
+</dom-module>

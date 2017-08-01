@@ -1,0 +1,79 @@
+<link rel="import" href="reddit-input-item.html">
+<link rel="import" href="reddit-button-refresh.html">
+<link rel="import" href="reddit-button-add-reddits.html">
+
+<dom-module id="reddit-clone-header">
+
+    <template>
+        <style include="reddit-clone-header-shared-styles">
+            div{
+                font-family: var(--reddit-clone-header-font-family, var(--default-font-family, cursive));
+                
+                font-size: var(--reddit-clone-header-font-size, var(--default-font-size, 14px));
+                
+                @apply(reddit-clone-header-div);
+            }
+            div#count {
+                text-align: var(--reddit-clone-header-text-align, var(--default-text-align, right));
+                
+                @apply(reddit-clone-header-div-count);
+            }
+            
+            span{
+                background-color: var(--reddit-clone-header-background-color, var(--default-background-color, thistle));
+                
+                border-radius: var(--reddit-clone-header-border-radius, var(--default-border-radius, 4px));
+                
+                position: var(--reddit-clone-header-position, var(--default-position, relative));
+                
+                box-shadow: var(--reddit-clone-header-box-shadow, var(--default-box-shadow, 1px 2px 4px rgba(0, 0, 0, .5)));
+                
+                padding: var(--reddit-clone-header-padding, var(--default-padding, 10px));
+                
+                border-radius: var(--reddit-clone-header-border-radius, var(--default-border-radius, 10px 10px 10px 10px));
+                
+                @apply(reddit-clone-header-span);
+            }
+        </style>
+        <div>
+            <h1>[[title]]</h1>
+        </div>
+        <div>
+        <reddit-button-refresh id="refresh"></reddit-button-refresh>
+        <reddit-button-add-reddits id="add"></reddit-button-add-reddits>
+        </div>
+        
+        <div id="count">
+            <span>Reddits recibidos: 
+            [[filtrado]]/[[longitud]]</span>
+        </div>
+        
+        <reddit-input-item id="str-filter"></reddit-input-item>
+    </template>
+    <script>
+        Polymer({
+            is: "reddit-clone-header",
+            properties: {
+                title: {
+                    type: String,
+                    value: "Reddit List"
+                }
+            },
+            listeners: {
+                'str-filter.str-changed': '_fireString',
+                'refresh.refresco': '_fireRefresh',
+                'add.añadir': '_fireAdd'
+            },
+            _fireString: function(event) {
+                this.fire("filter-ready", event.detail.value);
+            },
+            _fireRefresh: function() {
+                this.fire("refrescar");
+            },
+            _fireAdd: function() {
+                this.fire("adicionar");
+            }
+        });
+
+    </script>
+</dom-module>

@@ -1,0 +1,84 @@
+<link rel="import" href="reddit-clone-dm.html">
+<link rel="import" href="reddit-clone-header.html">
+<link rel="import" href="reddit-item-list.html">
+<link rel="import" href="reddit-selected-item.html">
+<link rel="import" href="reddit-loader.html">
+
+<dom-module id="reddit-clone">
+    <template>
+        <reddit-loader id="load"></reddit-loader>
+        <reddit-clone-header longitud="[[reddits.length]]" filtrado="[[filteredDataToShow.length]]" id="theHeader"></reddit-clone-header>
+        <reddit-selected-item detalle="[[rDetails]]"></reddit-selected-item>
+        <reddit-item-list reddits="[[filteredDataToShow]]" id="redditList" longitud="[[filteredDataToShow.length]]"></reddit-item-list>
+        <reddit-clone-dm id="dManager"></reddit-clone-dm>
+    </template>
+    <script>
+        Polymer({
+            is: "reddit-clone",
+            properties: {
+                reddits: {
+                    type: Array,
+                    value: []
+                },
+                rDetails: {
+                    type: Array,
+                    value: null
+                },
+                stringFilterData: {
+                    type: String,
+                    value: ''
+                },
+                filteredDataToShow: {
+                    type: Array,
+                    computed: '_filterReddits(reddits, stringFilterData, reddits.length)'
+                }
+            },
+            attached: function() {
+                this.$.dManager._getDataLoad();
+            },
+            listeners: {
+                'dManager.list': '_redditToShow',
+                'redditList.muestra-detalle': '_selectedToShow',
+                'theHeader.filter-ready': '_toFilter',
+                'theHeader.refrescar': '_redditsRefresh',
+                'theHeader.adicionar': '_addReddits',
+                'dManager.show-loader': '_showSpinner',
+                'dManager.mostrar': '_hiddenSpinner'
+            },
+            _redditToShow: function(event) {
+                this.push("reddits", ...event.detail);
+            },
+            _selectedToShow: function(event) {
+                this.rDetails = event.detail;
+            },
+            _filterReddits: function(reddits, stringFilterData) {
+                this.linkPaths("filteredDataToShow", "reddits");
+                
+                let _array = [];
+                if (!stringFilterData) {
+                    _array = reddits;
+                }else{
+                    _array = reddits.filter((x) => x.author.toLowerCase().includes(stringFilterData.toLowerCase()));
+                }
+                return _array;
+            },
+            _toFilter(event) {
+                this.stringFilterData = event.detail;
+            },
+            _redditsRefresh: function(){
+                this.set("reddits", []);
+                this.$.dManager._getDataLoad();
+            },
+            _addReddits: function(event){
+                this.$.dManager._getDataLoad();
+            },
+            _showSpinner(event){
+                this.$.load.show();
+            },
+            _hiddenSpinner(event){
+                this.$.load.hide();
+            }
+        });
+
+    </script>
+</dom-module>

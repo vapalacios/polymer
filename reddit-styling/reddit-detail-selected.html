@@ -1,0 +1,50 @@
+<link rel="import" href="reddit-detail-selected-shared-styles.html">
+
+<dom-module id="reddit-detail-selected">
+    <template>
+        <style include="reddit-detail-selected-shared-styles">
+            p {
+                font-family: var(--reddit-detail-selected-font-family, var(--default-font-family, cursive));
+                
+                font-size: var(--reddit-detail-selected-font-size, var(--default-font-size, 12px));
+                
+                word-wrap: var(--reddit-detail-selected-word-wrap, var(--default-word-wrap, break-word));
+                
+                @apply(reddit-detail-selected-p);
+            }
+        </style>
+        <p>Autor: <span>[[author]]</span></p>
+        <p>Titulo: <span>[[title]]</span></p> 
+        <p>Subreddit: <span>[[subreddit]]</span></p>
+        <p>Ups: <span>[[ups]]</span></p>
+        <p>Downs: <span>[[downs]]</span></p> 
+        <p>Url: <a href="[[url]]" target="_blank">[[url]]</a></p>
+    </template>
+    <script>
+        Polymer({
+            is: "reddit-detail-selected",
+            properties: {
+                author: {
+                    type: String,
+                    value: ""
+                },
+                title: {
+                    type: String,
+                    value: ""
+                },
+                subreddit: {
+                    type: String,
+                    value: ""
+                },
+                ups: {
+                    type: String,
+                    value: ""
+                },
+                url: {
+                    type: String,
+                    value: ""
+                }
+            }
+        });
+    </script>
+</dom-module>

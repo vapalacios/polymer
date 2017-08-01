@@ -1,0 +1,36 @@
+<link rel="import" href="reddit-clone-dp.html">
+<dom-module id="reddit-clone-dm">
+    <template>
+        <reddit-clone-dp id="dProvider"></reddit-clone-dp>
+    </template>
+    <script>
+        Polymer({
+            is: "reddit-clone-dm",
+            properties: {
+            },
+            listeners: {
+                'dProvider.data-ready': '_dataParse'
+            },
+            _getDataLoad: function() {
+                this.fire("show-loader");
+                this.$.dProvider.loadData();
+            },
+            _dataParse: function(event) {
+                let myFilter = event.detail.children.map((x, index)=>{
+                    return {
+                        id: index,
+                        url: x.data.url,
+                        title: x.data.title,
+                        subreddit: x.data.subreddit,
+                        author: x.data.author,
+                        ups: x.data.ups,
+                        downs: x.data.downs
+                    }
+                });
+                this.fire("list", myFilter);
+                this.fire("mostrar");
+            }
+        });
+
+    </script>
+</dom-module>

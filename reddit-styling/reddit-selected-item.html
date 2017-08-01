@@ -1,0 +1,67 @@
+<link rel="import" href="reddit-detail-selected.html">
+
+<dom-module id="reddit-selected-item">
+    <template>
+        <style include="reddit-selected-item-shared-styles">
+            div{
+                font-family: var(--reddit-selected-item-font-family, var(--default-font-family, cursive));
+                
+                font-size: var(--reddit-selected-item-font-size, var(--default-font-size, 16px));
+                
+                background-color: var(--reddit-selected-item-background-color, var(--default-background-color, oldlace));
+                
+                cursor: var(--reddit-selected-item-cursor, var(--default-cursor, pointer));
+                
+                margin: var(--reddit-selected-item-margin, var(--default-margin, 10px 0px));
+                
+                border-radius: var(--reddit-selected-item-border-radius, var(--default-border-radius, 10px 10px 10px 10px));
+                
+                border: var(--reddit-selected-item-border, var(--default-border, 0px solid #000000));
+                
+                width: var(--reddit-selected-item-width, var(--default-width, 50%));
+                
+                @apply(--reddit-selected-item-div);
+            }
+            p#mensaje{
+                vertical-align: var(--reddit-selected-item-vertical-align, var(--default-vertical-align, middle));
+                
+                @apply(--reddit-selected-item-p);
+            }
+            
+            div#noData {
+                position: var(--reddit-selected-item-position, var(--default-position, relative));
+                
+                box-shadow: var(--reddit-selected-item-box-shadow, var(--default-box-shadow, 1px 2px 4px rgba(0, 0, 0, .5)));
+                
+                padding: var(--reddit-selected-item-padding, var(--default-padding, 10px));
+                
+                border-radius: var(--reddit-selected-item-border-radius, var(--default-border-radius, 10px 10px 10px 10px));
+            }
+        </style>
+        <template is="dom-if" if="[[detalle]]">
+            <h2 on-tap="_updateList">Reddit Seleccionado</h2>
+            <div id="det">
+                <reddit-detail-selected author="[[detalle.author]]" title="[[detalle.title]]" subreddit="detalle.subreddit" ups="[[detalle.ups]]" downs="[[detalle.downs]]" url="[[detalle.url]]" class="shadow"></reddit-detail-selected>
+            </div>
+        </template>
+        <template is="dom-if" if="[[!detalle]]">
+            <div id="noData">
+                <p id="mensaje">No hay reddit seleccionado.</p>
+            </div>
+        </template>
+    </template>
+    <script>
+        Polymer({
+            is: "reddit-selected-item",
+            properties: {
+                detalle: {
+                    type: Array,
+                    value: null
+                }
+            },
+            _updateList(){
+                this.detalle = null;
+            }
+        });
+    </script>
+</dom-module>

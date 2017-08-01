@@ -1,0 +1,36 @@
+<link rel="import" href="reddit-base-info-shared-styles.html">
+
+<dom-module id="reddit-base-info">
+    <template>
+        <style include="reddit-base-info-shared-styles">
+            p {
+                font-family: var(--reddit-base-info-font-family, var(--default-font-family, cursive));
+                
+                font-size: var(--reddit-base-info-font-size, var(--default-font-size, 12px));
+            }
+        </style>
+        <p>Autor: <span>[[author]]</span></p>
+        <p>Titulo: <span>[[title]]</span></p>
+        <p>Subreddit: <span>[[subreddit]]</span></p>
+    </template>
+    <script>
+        Polymer({
+            is: "reddit-base-info",
+            properties: {
+                author: {
+                    type: String,
+                    value: ""
+                },
+                title: {
+                    type: String,
+                    value: ""
+                },
+                subreddit: {
+                    type: String,
+                    value: ""
+                }
+            }
+        });
+
+    </script>
+</dom-module>

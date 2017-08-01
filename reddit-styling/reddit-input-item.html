@@ -1,0 +1,48 @@
+<dom-module id="reddit-input-item">
+    <template>
+        <style include= "reddit-input-item-shared-styles">
+            div{
+                font-family: var(--reddit-input-item-font-family, var(--default-font-family, cursive));
+                
+                font-size: var(--reddit-input-item-font-size, var(--default-font-size, 16px));
+                
+                font-weight: var(--reddit-input-item-font-weight, var(--defaut-font-weight, bold));
+                
+                @apply(reddit-input-item-div);
+            }
+            input {
+                padding: var(--reddit-input-item-padding, var(--default-padding, 8px));
+                
+                display: var(--reddit-input-item-display, var(--default-display, inline-block));
+                
+                border: var(--reddit-input-item-border, var(--default-border, none));
+                
+                width: var(--reddit-input-item-width, var(--default-width, 30%));
+                
+                border-radius: var(--reddit-input-item-border-radius, var(--default-border-radius, 4px));
+                
+                font-family: var(--reddit-input-item-font-family, var(--default-font-family, cursive));
+                
+                font-size: var(--reddit-input-item-font-size, var(--default-font-size, 10px));
+                
+                @apply(reddit-input-item-input);
+            }
+        </style>
+        <div>
+            <label>Filtro</label>
+            <input id="inp" value="{{str::input}}" placeholder="Palabra a buscar" autofocus>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            is: "reddit-input-item",
+            properties: {
+                str: {
+                    type: String,
+                    notify: true
+                }
+            }
+        });
+
+    </script>
+</dom-module>
