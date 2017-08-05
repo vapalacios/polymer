@@ -1,0 +1,82 @@
+<link rel="import" href="dcompras-header.html">
+<link rel="import" href="dcompras-listado-productos.html">
+<link rel="import" href="dcompras-data-manager.html">
+<link rel="import" href="dcompras-listado-productos-detail.html">
+<link rel="import" href="dcompras-include.html">
+<link rel="import" href="dcompras-informe-existencia.html">
+
+<dom-module id="dcompras-contenedor">
+    <template>
+        <style></style>
+        <dcompras-data-manager id="dComprasDM"></dcompras-data-manager>
+        
+        <dcompras-header id="dComprasHeader"></dcompras-header>
+        
+        <dcompras-include id="dComprasInclude" hidden="[[hidden]]"></dcompras-include>
+        
+        <dcompras-informe-existencia id="dComprasInforme" hidden="[[display]]" products="[[products]]"></dcompras-informe-existencia>
+        
+        <dcompras-listado-productos-detail id="dComprasDetail" product="{{pDetail}}"></dcompras-listado-productos-detail>
+        
+        <dcompras-listado-productos id="productList" products="[[products]]"></dcompras-listado-productos>
+    </template>
+    <script>
+        Polymer({
+            is: "dcompras-contenedor",
+            properties: {
+                products: {
+                    type: Array,
+                    value: []
+                },
+                product: {
+                    type: Object,
+                    value: {}
+                },
+                pDetail: {
+                    type: Array,
+                    value: null
+                },
+                hidden: {
+                    type: Boolean,
+                    value: true
+                },
+                display: {
+                    type: Boolean,
+                    value: true
+                },
+                generarId: {
+                    type: Number,
+                    value: 1
+                }
+            },
+            attached: function() {
+               this.products = this.$.dComprasDM.dataProvider();
+            },
+            listeners: {
+                'productList.show-detail': '_showDetailProduct',
+                'productList.product-to-edit': '_showDetailProduct',
+                'dComprasDetail.edited-product': '_updateObject',
+                'dComprasHeader.new': '_addProduct',
+                'dComprasInclude.new-product': '_showNewForm',
+                'dComprasHeader.check-stock':'_showInform'
+            },
+            _showDetailProduct: function(event){
+                this.pDetail = event.detail;
+            },
+            _updateObject: function(){
+                let index = this.products.findIndex((x)=>x.idProduct == this.pDetail.idProduct);
+                this.notifyPath('products.' + index, Object.assign({}, this.pDetail));
+            },
+            _showNewForm: function(event){
+                event.detail.idProduct = ++this.generarId;
+                this.push('products', event.detail);
+            },
+            _addProduct: function(){
+                this.hidden = false;
+            },
+            _showInform: function(){
+                this.display = false;
+            }
+        });
+    </script>
+</dom-module>

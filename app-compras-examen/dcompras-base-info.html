@@ -1,0 +1,47 @@
+<link rel="import" href="dcompras-button.html">
+
+<dom-module id="dcompras-base-info">
+    <template>
+        <style></style>
+        <p><img src$="[[picture]]"></p>
+        <p>Nombre: <span>[[name]]</span></p>
+        <p>Stock: <span>[[stock]]</span></p>
+        <p>Ventas: <span>[[sales]]</span></p>
+        <p>Disponible: <span>[[available]]</span></p>
+        <p><dcompras-button on-tap="_fireEvent" button-name="Ver Detalle"></dcompras-button></p>
+    </template>
+    <script>
+        Polymer({
+            is: "dcompras-base-info",
+            properties: {
+                picture: {
+                    type: String,
+                    value: ""
+                },
+                name: {
+                    type: String,
+                    value: ""
+                },
+                stock: {
+                    type: String,
+                    value: ""
+                },
+                sales: {
+                    type: Number,
+                    value: null
+                },
+                available: {
+                    type: Number,
+                    value: null
+                },
+                idProduct: {
+                    type: Number,
+                    value: null
+                }
+            },
+            _fireEvent: function(){
+                this.fire("edit-product", this.id);
+            }
+        });
+    </script>
+</dom-module>

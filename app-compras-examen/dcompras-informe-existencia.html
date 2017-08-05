@@ -1,0 +1,30 @@
+<link rel="import" href="dcompras-base-info.html">
+
+<dom-module id="dcompras-informe-existencia">
+    <template>
+        <style></style>
+        <template is="dom-if" if="[[products]]">
+            <template is="dom-repeat" items="[[products]]" as="product" id="list" filter="_howIsStock">
+                <div on-tap="_fireClick">
+                    <dcompras-base-info picture="[[product.picture]]" name="[[product.name]]" stock="[[product.stock]]" sales="[[product.sales]]" available="[[product.available]]" id="[[product.id]]"></dcompras-base-info>
+                </div>
+            </template>
+        </template>
+        
+        <template is="dom-if" if="[[!products]]">
+            <div id="noList">
+                <p>No hay productos a listar.</p>
+            </div>
+        </template>
+    </template>
+    <script>
+        Polymer({
+            is: "dcompras-informe-existencia",
+            properties: {
+            },
+            _howIsStock: function(item){
+                return item.available == 0;
+            }
+        });
+    </script>
+</dom-module>

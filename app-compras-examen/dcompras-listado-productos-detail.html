@@ -1,0 +1,97 @@
+<dom-module id="dcompras-listado-productos-detail">
+    <template>
+        <style include="dcompras-listado-productos-detail-shared-styles">
+            div#divImg {
+                display: var(--dcompras-listado-productos-detail-display, block);
+            }
+            
+            div#container {
+                background-color: var(--dcompras-listado-productos-detail-background-color, var(--default-background-color, azure));
+                
+                border-radius: var(--dcompras-listado-productos-detail-border-radius, var(--default-border-radius, 4px));
+                
+                border: var(--dcompras-listado-productos-detail-border, var(--default-border, solid 1px));
+                
+                display: inline-block;
+            }
+            
+            div#data {
+                margin: var(--dcompras-listado-productos-detail-margin, solid 3px);
+            }
+            
+            div#buttons {
+                text-align: center;    
+            }
+            
+            .shadow {
+                position: relative;
+                box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+                padding: 10px;
+                border-radius: 10px 10px 10px 10px;
+            }
+            
+        </style>
+        <div id="container" class="shadow">
+            <div id="data">
+                <div id="divImg"><img src$="[[product.picture]]"></div>
+                <div>
+                     Nombre:  <input placeholder="Nombre del producto" value="{{product.name::input}}" disabled="[[disabled]]">
+                </div>
+                <div>
+                    Stock: <input placeholder="Stock del producto" value="{{product.stock::input}}" disabled="[[disabled]]">
+                </div>
+                <div>
+                    Ventas: <input placeholder="Ventas del producto" value="{{product.sales::input}}" disabled="[[disabled]]">
+                </div>   
+                <div>
+                    Disponible: <input placeholder="Disponible" value="{{product.available::input}}" disabled="[[disabled]]">
+                </div>
+                <div>
+                    Precio Unitario: <input placeholder="Precio Unitario" value="{{product.price::input}}" disabled="[[disabled]]">
+                </div>
+                <div>
+                    Tallas Disponible: <input placeholder="Tallas" value="{{product.size::input}}" disabled="[[disabled]]">
+                </div>
+                <div>
+                    Total Ventas: <input placeholder="Total Ventas" value="{{product.profit::input}}" disabled="[[disabled]]">
+                </div>
+            </div>
+            <div id="buttons">
+                <template is="dom-if" if="[[edit]]">
+                    <dcompras-button on-tap="_permitEdit" button-name="Editar Producto"></dcompras-button>
+                </template>
+
+                <template is="dom-if" if="[[save]]">
+                    <dcompras-button on-tap="_saveObject" button-name="Guardar"></dcompras-button>
+                </template>
+            </div>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            is: "dcompras-listado-productos-detail",
+            properties: {
+                disabled: {
+                    type: Boolean,
+                    value: true
+                },
+                edit: {
+                    type: Boolean,
+                    value: true
+                },
+                save: {
+                    type: Boolean,
+                    value: false
+                } 
+            },
+            _saveObject: function(){
+                this.fire("edited-product");
+            },
+            _permitEdit: function(){
+                this.disabled = false;
+                this.edit = false;
+                this.save = true;
+            }
+        });
+    </script>
+</dom-module>

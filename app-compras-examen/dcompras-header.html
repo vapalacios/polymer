@@ -1,0 +1,33 @@
+<link rel="import" href="dcompras-button.html">
+
+<dom-module id="dcompras-header">
+    <template>
+        <style></style>
+        <header>
+            <h1>[[title]]</h1>
+        </header>
+        <div>
+            <dcompras-button on-tap="_fireEvent" button-name="Crear Producto"></dcompras-button>
+            <dcompras-button on-tap="_fireExist" button-name="Verificar Existencia"></dcompras-button>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            is: "dcompras-header",
+            properties: {
+                title: {
+                    type: String,
+                    value: function(){
+                        return "DCOMPRAS";
+                    }
+                }
+            },
+            _fireEvent: function(){
+                this.fire("new");
+            },
+            _fireExist: function(){
+                this.fire("check-stock");
+            }
+        });
+    </script>
+</dom-module>

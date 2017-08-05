@@ -1,0 +1,36 @@
+<dom-module id="dcompras-data-manager">
+    <template>
+        <style></style>
+    </template>
+    <script>
+        Polymer({
+            is: "dcompras-data-manager",
+            dataProvider: function(){
+                return [
+                    {
+                        idProduct: 0,
+                        name: "Polo",
+                        stock: 10,
+                        sales: 1,
+                        price: 1000,
+                        available: 9,
+                        size: ["S", "M", "L", "XL"],
+                        profit: 1000,
+                        picture: "http://www.soloepis.com/media/catalog/category/ropa-de-alta-visibilidad-reflectante-cat.jpg"
+                    },
+                    {
+                        idProduct: 1,
+                        name: "Playera",
+                        stock: 10,
+                        sales: 0,
+                        price: 900,
+                        available: 9,
+                        size: ["S", "M", "L", "XL"],
+                        profit: 0,
+                        picture: "http://www.flyingblack9.co.uk/images/products/Jordan%20Air%20Burnout%20T-Shirt%20-%20Men%20s%20T-Shirts%20-%20Team%20Orange%20Atomic%20Orange%20Atomic%20Orange%20-%201787484.jpg"
+                    }
+                ]
+            }
+        });
+    </script>
+</dom-module>
