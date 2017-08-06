@@ -1,32 +1,48 @@
+<link rel="import" href="bower_components/iron-collapse/iron-collapse.html">
+
 <dom-module id="dcompras-include">
     <template>
-        <style></style>
-        <p>
-            Url imagen: <input placeholder="Url imagen" value="{{picture::input}}">
-        <p>
-            Nombre:  <input placeholder="Nombre del producto" value="{{name::input}}" >
-        </p>
-        <p>
-            Stock: <input placeholder="Stock del producto" value="{{stock::input}}" >
-        </p>
-        <p>
-            Ventas: <input placeholder="Ventas del producto" value="{{sales::input}}" >
-        </p>
-        <p>
-            Disponible: <input placeholder="Disponible" value="{{available::input}}" >
-        </p>
-        <p>
-            Precio Unitario: <input placeholder="Precio Unitario" value="{{price::input}}" >
-        </p>
-        <p>
-            Tallas Disponible: <input placeholder="Tallas" value="{{size::input}}" >
-        </p>
-        <p>
-            Total Ventas: <input placeholder="Total Ventas" value="{{profit::input}}" >
-        <p>
-        
-            <dcompras-button on-tap="_saveObject" button-name="Guardar"></dcompras-button>
-        </p>
+        <style>
+            input[type=text], select {
+                width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+                
+                @apply --dcompras-include-input
+            }
+
+            div {
+                border-radius: 5px;
+                background-color: #f2f2f2;
+                padding: 20px;
+            }
+            
+            div#divButton{
+                text-align: center;
+            }
+        </style>
+        <iron-collapse opened="[[opened]]">
+            <div>
+                <label for="img">Url imagen:  </label>
+                <input required type="text" id="img" placeholder="Url imagen" value="{{picture::input}}">
+                <label for="name">Nombre:  </label>
+                <input required type="text" id="name" placeholder="Nombre del producto" value="{{name::input}}">
+                <label for="stock">Stock:  </label>
+                <input required type="text" id="stock" placeholder="Stock del producto" value="{{stock::input}}" >
+                <label for="price">Precio Unitario:</label>
+                <input required type="text" id="price" placeholder="Precio Unitario" value="{{price::input}}" >
+                <label for="size">Tallas Disponible:</label>
+                <input required type="text" placeholder="Tallas" value="{{size::input}}" >
+                <div id="divButton">
+                    <dcompras-button on-tap="_closeWindow" button-name="Cerrar"></dcompras-button>
+                    <dcompras-button on-tap="_saveObject" button-name="Guardar"></dcompras-button>
+                </div>
+            </div>
+        </iron-collapse>
     </template>
     <script>
         Polymer({
@@ -71,6 +87,10 @@
                 newProduct: {
                     type: Object,
                     value: {}
+                },
+                opened: {
+                    type: Boolean,
+                    value: false
                 }
             },
             _saveObject: function(){
@@ -86,6 +106,9 @@
                 this.set("newProduct.size", this.size);
                 this.fire("new-product", this.newProduct);
                 this.set('newProduct', {});
+            },
+            _closeWindow: function(){
+                this.fire('close-include');
             }
         });
     </script>

@@ -2,13 +2,33 @@
 
 <dom-module id="dcompras-base-info">
     <template>
-        <style></style>
-        <p><img src$="[[picture]]"></p>
-        <p>Nombre: <span>[[name]]</span></p>
-        <p>Stock: <span>[[stock]]</span></p>
-        <p>Ventas: <span>[[sales]]</span></p>
-        <p>Disponible: <span>[[available]]</span></p>
-        <p><dcompras-button on-tap="_fireEvent" button-name="Ver Detalle"></dcompras-button></p>
+        <style>
+            div {
+                text-align: left;
+                padding: 8px;
+                vertical-align: middle;
+                display: inline-block;
+                width: 14%;
+            }
+            img{
+                width: auto;
+                max-width: 100px;
+                max-height: 100px;
+            }
+        </style> 
+        <div><img src$="[[picture]]"></div>
+        <div>Prenda:  [[name]]</div>
+        <div>Disponible:  [[available]]</div>
+        <div>Precio:  [[price]]</div>
+        
+        <template is="dom-if" if="[[!checkStock]]">
+            <div><dcompras-button on-tap="_fireEvent" button-name="Ver Detalle"></dcompras-button></div>
+        </template>
+        
+        <template is="dom-if" if="[[checkStock]]">
+            <div>Stock inicial: [[stock]]</div>
+            <div>Total Ventas: [[profit]]</div>
+        </template>
     </template>
     <script>
         Polymer({
@@ -23,8 +43,8 @@
                     value: ""
                 },
                 stock: {
-                    type: String,
-                    value: ""
+                    type: Number,
+                    value: null
                 },
                 sales: {
                     type: Number,
@@ -32,15 +52,31 @@
                 },
                 available: {
                     type: Number,
-                    value: null
+                    value: null,
+                    computed: '_getAvailable(stock, sales)'
                 },
                 idProduct: {
                     type: Number,
                     value: null
+                },
+                checkStock: {
+                    type: Boolean,
+                    value: false
+                },
+                profit: {
+                    type: Number,
+                    value: null,
+                    computed: '_getProfit(sales, price)'
                 }
             },
             _fireEvent: function(){
-                this.fire("edit-product", this.id);
+                this.fire("edit-product", this.idProduct);
+            },
+            _getAvailable: function(stock, sales){
+                return stock - sales;
+            },
+            _getProfit: function(sales, price){
+                return sales * price;
             }
         });
     </script>

@@ -2,15 +2,23 @@
 
 <dom-module id="dcompras-listado-productos">
     <template>
-        <style></style>
+        <style>
+            div{
+                width: auto;
+                cursor: pointer;
+                border-radius: 4px;
+                
+                @apply --dcompras-listado-productos-div
+            }
+        </style>
+        
         <template is="dom-if" if="[[products]]">
             <template is="dom-repeat" items="[[products]]" as="product" id="list">
-                <div on-tap="_fireClick">
-                    <dcompras-base-info picture="[[product.picture]]" name="[[product.name]]" stock="[[product.stock]]" sales="[[product.sales]]" available="[[product.available]]" id="[[product.id]]"></dcompras-base-info>
+                <div>
+                    <dcompras-base-info picture="[[product.picture]]" name="[[product.name]]" stock="[[product.stock]]" sales="[[product.sales]]" available="[[product.available]]" id-product="[[product.idProduct]]" price="[[product.price]]" on-tap="_fireClick" id="productItem"></dcompras-base-info>
                 </div>
             </template>
         </template>
-        
         <template is="dom-if" if="[[!products]]">
             <div id="noList">
                 <p>No hay productos a listar.</p>
@@ -30,8 +38,8 @@
                     value: ""
                 },
                 stock: {
-                    type: String,
-                    value: ""
+                    type: Number,
+                    value: null
                 },
                 sales: {
                     type: Number,
@@ -40,10 +48,21 @@
                 available: {
                     type: Number,
                     value: null
+                },
+                price: {
+                    type: Number,
+                    value: null
+                },
+                idProduct: {
+                    type: Number,
+                    value: null
                 }
             },
             _fireClick: function(event) {
                 this.fire("show-detail", event.model.product);
+            },
+            _fireDetail: function(event){
+                console.log(event);
             }
         });
     </script>

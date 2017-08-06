@@ -12,11 +12,11 @@
         
         <dcompras-header id="dComprasHeader"></dcompras-header>
         
-        <dcompras-include id="dComprasInclude" hidden="[[hidden]]"></dcompras-include>
+        <dcompras-include id="dComprasInclude" opened="[[opened]]"></dcompras-include>
         
-        <dcompras-informe-existencia id="dComprasInforme" hidden="[[display]]" products="[[products]]"></dcompras-informe-existencia>
+        <dcompras-informe-existencia id="dComprasInforme" opened="[[hidden]]" products="[[filterProducts]]"></dcompras-informe-existencia>
         
-        <dcompras-listado-productos-detail id="dComprasDetail" product="{{pDetail}}"></dcompras-listado-productos-detail>
+        <dcompras-listado-productos-detail id="dComprasDetail" product="{{pDetail}}" opened="[[display]]"></dcompras-listado-productos-detail>
         
         <dcompras-listado-productos id="productList" products="[[products]]"></dcompras-listado-productos>
     </template>
@@ -36,17 +36,25 @@
                     type: Array,
                     value: null
                 },
-                hidden: {
+                opened: {
                     type: Boolean,
-                    value: true
+                    value: false
                 },
                 display: {
                     type: Boolean,
-                    value: true
+                    value: false
                 },
                 generarId: {
                     type: Number,
                     value: 1
+                },
+                hidden: {
+                    type: Boolean,
+                    value: true
+                },
+                filterProducts: {
+                    type: Array,
+                    value: []
                 }
             },
             attached: function() {
@@ -58,24 +66,39 @@
                 'dComprasDetail.edited-product': '_updateObject',
                 'dComprasHeader.new': '_addProduct',
                 'dComprasInclude.new-product': '_showNewForm',
-                'dComprasHeader.check-stock':'_showInform'
+                'dComprasHeader.check-stock':'_showInform',
+                'dComprasDetail.close-detail': '_closeDetail',
+                'dComprasInclude.close-include': '_closeInclude'
             },
             _showDetailProduct: function(event){
+                this.display = true;
                 this.pDetail = event.detail;
             },
             _updateObject: function(){
+                this.display = false;
                 let index = this.products.findIndex((x)=>x.idProduct == this.pDetail.idProduct);
+                this.pDetail.available = this.pDetail.stock - this.pDetail.sales;
+                this.pDetail.profit = this.pDetail.sales * this.pDetail.price;
+                this.pDetail.sales = Number.parseInt(this.pDetail.sales);
                 this.notifyPath('products.' + index, Object.assign({}, this.pDetail));
             },
             _showNewForm: function(event){
+                this.opened = false;
                 event.detail.idProduct = ++this.generarId;
                 this.push('products', event.detail);
             },
             _addProduct: function(){
-                this.hidden = false;
+                this.opened = true;
             },
             _showInform: function(){
+                this.filterProducts = this.products.filter((x)=> x.available == 0);
+                this.hidden = true;
+            },
+            _closeDetail: function(){
                 this.display = false;
+            },
+            _closeInclude: function(){
+                this.opened = false;
             }
         });
     </script>

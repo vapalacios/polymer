@@ -1,29 +1,77 @@
 <link rel="import" href="dcompras-base-info.html">
+<link rel="import" href="bower_components/iron-collapse/iron-collapse.html">
 
 <dom-module id="dcompras-informe-existencia">
     <template>
-        <style></style>
+        <style>
+            div {
+                border-radius: 5px;
+                background-color: #f2f2f2;
+                padding: 20px;
+                width: auto;
+                cursor: pointer;
+                
+                @apply --dcompras-informe-existencia-div;
+            }
+        </style>
         <template is="dom-if" if="[[products]]">
-            <template is="dom-repeat" items="[[products]]" as="product" id="list" filter="_howIsStock">
-                <div on-tap="_fireClick">
-                    <dcompras-base-info picture="[[product.picture]]" name="[[product.name]]" stock="[[product.stock]]" sales="[[product.sales]]" available="[[product.available]]" id="[[product.id]]"></dcompras-base-info>
+            <iron-collapse opened="[[opened]]">
+                <template is="dom-repeat" items="[[products]]" as="product" id="listStock">
+                <div>
+                    <dcompras-base-info picture="[[product.picture]]" name="[[product.name]]" stock="[[product.stock]]" sales="[[product.sales]]" available="[[product.available]]" id-product="[[product.idProduct]]" price="[[product.price]]" check-stock="[[checkStock]]"></dcompras-base-info>
                 </div>
             </template>
+            </iron-collapse>
         </template>
         
         <template is="dom-if" if="[[!products]]">
-            <div id="noList">
-                <p>No hay productos a listar.</p>
-            </div>
+            <iron-collapse opened="[[opened]]">
+                <div id="noList">
+                    <p>No hay productos a listar.</p>
+                </div>
+            </iron-collapse>
         </template>
     </template>
     <script>
         Polymer({
             is: "dcompras-informe-existencia",
             properties: {
-            },
-            _howIsStock: function(item){
-                return item.available == 0;
+                picture: {
+                    type: String,
+                    value: ""
+                },
+                name: {
+                    type: String,
+                    value: ""
+                },
+                stock: {
+                    type: Number,
+                    value: null
+                },
+                sales: {
+                    type: Number,
+                    value: null
+                },
+                available: {
+                    type: Number,
+                    value: null
+                },
+                price: {
+                    type: Number,
+                    value: null
+                },
+                idProduct: {
+                    type: Number,
+                    value: null
+                },
+                checkStock: {
+                    type: Boolean,
+                    value: true
+                },
+                opened: {
+                    type: Boolean,
+                    value: true
+                }
             }
         });
     </script>

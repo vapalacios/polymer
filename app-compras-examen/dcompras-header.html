@@ -2,14 +2,53 @@
 
 <dom-module id="dcompras-header">
     <template>
-        <style></style>
+        <style>
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                border: 1px solid #e7e7e7;
+                background-color: #f3f3f3;
+            }
+
+            li {
+                float: left;
+            }
+
+            li a {
+                display: block;
+                color: #666;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+            li a:hover:not(.active) {
+                background-color: #ddd;
+            }
+
+            li a.active {
+                color: white;
+                background-color: #4CAF50;
+            }
+        </style>
         <header>
-            <h1>[[title]]</h1>
+            <div>
+                <ul>
+                    <li>
+                      <a class$="[[default]]" href="#home" on-tap="_setActive">[[title]]</a>
+                    </li>
+                    <li>
+                      <a class$="[[activeNew]]" href="#new" on-tap="_fireEvent">[[newProduct]]</a>
+                    </li>
+                    <li>
+                      <a class$="[[activeCheck]]" href="#stock" on-tap="_fireExist">[[checkStock]]</a>
+                    </li>
+                </ul>
+            </div>
         </header>
-        <div>
-            <dcompras-button on-tap="_fireEvent" button-name="Crear Producto"></dcompras-button>
-            <dcompras-button on-tap="_fireExist" button-name="Verificar Existencia"></dcompras-button>
-        </div>
+        
     </template>
     <script>
         Polymer({
@@ -17,16 +56,51 @@
             properties: {
                 title: {
                     type: String,
-                    value: function(){
+                    value: function() {
                         return "DCOMPRAS";
                     }
+                },
+                newProduct: {
+                    type: String,
+                    value: function() {
+                        return "New Product";
+                    }
+                },
+                checkStock: {
+                    type: String,
+                    value: function() {
+                        return "Check Stock";
+                    }
+                },
+                activeNew: {
+                    type: String,
+                    value: ""
+                },
+                default: {
+                    type: String,
+                    value: "active"
+                },
+                activeCheck: {
+                    type: String,
+                    value: ""
                 }
             },
-            _fireEvent: function(){
+            _fireEvent: function() {
+                this.default = "";
+                this.activeNew = "active";
+                this.activeCheck = "";
                 this.fire("new");
             },
-            _fireExist: function(){
+            _fireExist: function() {
+                this.default = "";
+                this.activeNew = "";
+                this.activeCheck = "active";
                 this.fire("check-stock");
+            },
+            _setActive: function(){
+                this.default = "active";
+                this.activeNew = "";
+                this.activeCheck = "";
             }
         });
     </script>
