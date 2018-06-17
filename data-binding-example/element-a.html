@@ -1,0 +1,102 @@
+<dom-module id="element-a">
+  <template>
+    <style>
+      :host {
+        background-color: green;
+        display: block;
+      }
+    </style>
+
+    <p>Value: [[value]]</p>
+
+    <hr>
+
+    <p>singleObject.text: [[singleObject.text]]</p>
+
+    <hr>
+
+    <p>Items:
+      <template is="dom-repeat" items=[[items]]>
+        [[item]]
+      </template>
+  </p>
+
+  <p>Computed length: [[computedLength]]</p>
+  </template>
+
+  <script>
+    var PROPERTY_NOTIFICATION_ENABLED = false;
+
+    Polymer({
+      is: 'element-a',
+      properties: {
+        value: {
+          type: String,
+          value: null,
+          notify: PROPERTY_NOTIFICATION_ENABLED
+        },
+        items: {
+          type: Array,
+          value: function() {
+            return [];
+          },
+          notify: PROPERTY_NOTIFICATION_ENABLED
+        },
+        singleObject: {
+          type: Object,
+          value: function() {
+            return {};
+          },
+          notify: PROPERTY_NOTIFICATION_ENABLED
+        },
+        computedLength: {
+          type: Number,
+          value: 0,
+          computed: '_calculateItemsLength(items)'
+          //computed: '_calculateItemsLength(items, items.length)'
+          //propiedad que sólo se volverá a calcular si cambiamos la referencia del array.
+          //o bien, generamos una dependencia a un campo que sí variará.
+        }
+      },
+      changeValue: function(newValue) {
+        this.set('value', newValue);
+      },
+      pushItem: function() {
+        var newValue = Math.floor((Math.random() * 9999) + 1);
+
+        //1
+        //DE ESTA FORMA, SE VOLVERÁN A CALCULAR LAS PROPIEDADES COMPUTADAS.
+        var items = this.get('items');
+        items.push(newValue);
+
+        this.set('items', Object.assign([], items));
+
+        //DE ESTA FORMA, NO SE VOLVERÁN A CALCULAR LAS PROPIEDADES COMPUTADAS.
+        //EXEPTUANDO SI CREAMOS UNA DEPENDENCIA A UNA PROPIEDAD QUE VARÍE, P.E. LA LONGITUD
+        //this.push('items', newValue);
+
+        //2
+        //this.items.push(newValue);
+        //this.set('items', Object.assign([], this.items));
+
+        //3
+        //var items = Object.assign([], this.items);
+        //items.push(newValue);
+        //this.set('items', items);
+      },
+      changeObjectText: function(newValue) {
+        this.set('singleObject.text', newValue)
+      },
+      removeReferences: function() {
+        this.set('value', '');
+        this.set('singleObject', {});
+        this.set('items', []);
+      },
+      _calculateItemsLength: function(items) {
+        console.log('element-a::_calculateItemsLength();');
+
+        return items.length;
+      }
+    });
+  </script>
+</dom-module>

@@ -1,0 +1,22 @@
+<dom-module id="my-special-component">
+  <template>
+    <button id="btn">PULSAME!</button>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'my-special-component',
+      properties: {
+
+      },
+      listeners: {
+        'btn.tap': '_fireEvent'
+      },
+      _fireEvent: function() {
+        this.fire('button-pressed', {
+          pressed: true
+        });
+      }
+    });
+  </script>
+</dom-module>

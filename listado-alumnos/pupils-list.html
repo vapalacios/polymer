@@ -1,0 +1,33 @@
+<link rel="import" href="pupils-list-item.html">
+
+<dom-module id="pupils-list">
+    <template>
+        <style>
+        </style>
+        <template is="dom-if" if="[[pupils]]">
+            <div>
+                <table>
+                    <template is="dom-repeat" items="[[pupils]]">
+                        <pupils-list-item name="[[item.name]]" last-name="[[item.lastName]]" picture="[[item.picture]]" notes="[[item.notes]]" index="[[index]]" id="listPupils"></pupils-list-item>
+                    </template>
+                </table>
+            </div>
+        </template>
+        <template></template>
+        
+        <template is="dom-if" if="[[!pupils]]">
+            <div>No hay elementos a listar</div>
+        </template>
+    </template>
+    <script>
+        Polymer({
+            is: "pupils-list",
+            properties: {
+                pupils: {
+                    type: Array,
+                    value: []
+                }
+            }
+        });
+    </script>
+</dom-module>

@@ -1,0 +1,69 @@
+<link rel="import" href="style-component-shared-styles.html">
+<dom-module id="style-component">
+    <template>
+        <style include="style-component-shared-styles">
+            .header-wrapper header, ::content > header {
+                font-size: var(--style-component-header-font-size, var(--default-font-size, 20px));
+                
+                font-weight: var(--style-component-header-font-weight, var(--default-font-weight, bolder));
+                
+                color: var(--style-component-header-color, var(--default-color, darkblue));
+                
+                @apply(--style-component-header);
+            }
+            #body div, ::content div{
+                font-size: var(--style-component-div-font-size, var(--default-font-size, 100px));
+                
+                color: var(--style-component-div-color, var(--default-color, darkblue));
+                
+                background-color: var(--style-component-div-background-color, var(--default-background-color, white));
+                
+                @apply(--style-component-div);
+            }
+           #footer footer, ::content footer{
+                font-size: var(--style-component-footer-font-size, var(--default-font-size, 8px));
+                
+                font-weight: var(--style-component-footer-font-weight, var(--default-font-weight, bolder));
+                
+                color: var(--style-component-footer-color, var(--default-color, darkblue));
+                
+                @apply(--style-component-footer);
+            }
+        </style>
+        <div class="header-wrapper">
+            <content select="header">
+                <header>[[title]]</header>
+            </content>
+        </div>
+        <div id="body">
+            <content select="div">
+                <div>[[contenido]]</div>
+            </content>
+        </div>
+        <div id="footer">
+            <content select="footer">
+                <footer>[[footer]]</footer>
+            </content>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            is: "style-component",
+            properties: {
+                title: {
+                    type: String,
+                    value: "Ejercicio Style-Content."
+                },
+                contenido: {
+                    type: String,
+                    value: "Este es el cuerpo del ejercicio."
+                },
+                footer: {
+                    type: String,
+                    value: "Por último el pie de la página."
+                }
+            }
+        });
+
+    </script>
+</dom-module>

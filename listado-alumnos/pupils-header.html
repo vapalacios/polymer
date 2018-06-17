@@ -1,0 +1,29 @@
+<link rel="import" href="pupils-button.html">
+
+<dom-module id="pupils-header">
+    <template>
+        <style></style>
+        <header>
+            <h1>[[title]]</h1>
+        </header>
+        <div>
+            <pupils-button on-tap="_fireEvent" button-name="Crear Alumno"></pupils-button>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            is: "pupils-header",
+            properties: {
+                title: {
+                    type: String,
+                    value: function(){
+                        return "Listado de Alumnos";
+                    }
+                }
+            },
+            _fireEvent: function(){
+                this.fire("new");
+            }
+        });
+    </script>
+</dom-module>

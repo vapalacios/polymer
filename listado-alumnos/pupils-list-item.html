@@ -1,0 +1,87 @@
+<link rel="import" href="pupils-button.html">
+<link rel="import" href="pupils-notes.html">
+
+<dom-module id="pupils-list-item">
+    <template>
+        <style include="list-pupils-item-shared-styles">
+
+            .w3-round {
+                border-radius: 4px;
+            }
+
+            img {
+                margin-bottom: -5px;
+                border-style: none;
+                width: 20%;
+            }
+            
+            div{
+                display: inline-block;
+            }
+
+        </style>
+        <tr>
+            <td>
+                <img src$="[[picture]]" class="w3-round" alt="Alumno sin foto"/>
+            </td>
+            <td>
+                <label id="labelName" hidden="[[display]]">[[name]]</label>
+            </td>
+            <td>
+                <label id="labelLastName" hidden="[[display]]">[[lastName]]</label>
+            </td>
+            <td>
+                <pupils-notes notes="{{notes}}" show-average="[[average]]"></pupils-notes>
+            </td>
+            <td>
+                <pupils-button on-tap="_fireEvent('edit')" button-name="[[edit]]"></pupils-button>
+            </td>
+            <td>
+                <pupils-button on-tap="_fireEvent('delete')" button-name="[[erase]]"></pupils-button>
+            </td>
+        </tr>
+    </template>
+    <script>
+        Polymer({
+            is: "pupils-list-item",
+            properties: {
+                name: {
+                    type: String,
+                    value: ""
+                },
+                lastName: {
+                    type: String,
+                    value: ""
+                },
+                picture: {
+                    type: String,
+                    value: ""
+                },
+                notes: {
+                    type: Array,
+                    value: []
+                },
+                edit: {
+                    type: String,
+                    value: "Edit"
+                },
+                erase: {
+                    type: String,
+                    value: "Eliminar"
+                },
+                average: {
+                    type: Boolean,
+                    value: true
+                },
+                index: {
+                    type: Number,
+                    value: null
+                }
+            },
+            _fireEvent: function(event){
+                console.log("a");
+                this.fire(action, this.index);
+            }
+        });
+    </script>
+</dom-module>

@@ -1,0 +1,72 @@
+<dom-module id="pupils-notes">
+    <template>
+        <style>
+            .aprobado {
+                font-weight: bold;
+                color: greenyellow;
+            }
+            .reprobado{
+                font-weight: bold;
+                color: red;
+            }
+        </style>
+        <template is="dom-if" if="[[showAverage]]">
+            <p class$="[[class]]">[[average]]</p>
+        </template>
+        <template is="dom-if" if="[[include]]">
+            <template is="dom-repeat" items="{{notes}}" as="note">
+                <input placeholder="Ingrese la nota" type="text" value="{{note::input}}" id="[[index]]">
+            </template> 
+        </template>
+    </template>
+    <script>
+        Polymer({
+            is: "pupils-notes",
+            properties: {
+                notes: {
+                    type: Array,
+                    value: []
+                },
+                showAverage: {
+                    type: Boolean,
+                    value: false
+                },
+                include: {
+                    type: Boolean,
+                    value: false
+                },
+                average: {
+                    type: Number,
+                    value: null,
+                    computed: '_getAverage(notes)'
+                },
+                class: {
+                    type: String,
+                    value: ""
+                },
+                note: {
+                    type: Number,
+                    value: null,
+                    notify: true
+                },
+                index: {
+                    type: Number,
+                    value: null
+                }
+            },
+            listeners: {
+            },
+            _getAverage: function(notes){
+                console.log(notes);
+                let avg = 0;
+                if(notes.length > 0){
+                    avg = notes.reduce((sum, x)=> {
+                        return Number.parseInt(sum) + Number.parseInt(x);
+                    }) / notes.length;
+                    this.class = avg >= 5? "aprobado": "reprobado";
+                }
+                return avg;
+            }
+        })
+    </script>
+</dom-module>

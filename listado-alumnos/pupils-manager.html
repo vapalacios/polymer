@@ -1,0 +1,62 @@
+<link rel="import" href="pupils-list.html">
+<link rel="import" href="pupils-add.html">
+<link rel="import" href="pupils-header.html">
+
+<dom-module id="pupils-manager">
+    <template>
+        <style></style>
+        <pupils-header id="pupilsHeader"></pupils-header>
+        <pupils-list pupils="[[pupils]]" id="pupilsList"></pupils-list>
+        <pupils-add pupil="[[pupil]]" action="[[action]]" id="pupilAdd"></pupils-add>
+    </template>
+    <script>
+        function _createNote(value) {
+            return {
+                value: value
+            }
+        }
+        
+        Polymer({
+            is: "pupils-manager",
+            properties: {
+                pupils: {
+                    type: Array,
+                    value: function(){
+                        return [
+                            {
+                                name: "Vlairner",
+                                lastName: "Palacios",
+                                picture: "https://lorempixel.com/output/people-q-c-640-480-3.jpg",
+                                notes: [1,2,3,4,5]
+                            }
+                        ]
+                    }
+                },
+                pupil: {
+                    type: Boolean,
+                    value: false
+                },
+                action: {
+                    type: String,
+                    value: ""
+                }
+            },
+            listeners: {
+                'pupilsHeader.new': '_showPupilsForm',
+                'pupilAdd.save': '_savePupil',
+                'pupilAdd.edit': '_editPupil',
+                'pupilsList.delete': '_deletePupil'
+            },
+            _showPupilsForm: function(){
+                this.pupil = true;
+                this.action = "save";
+            },
+            _savePupil(event){
+                this.push('pupils', event.detail);
+            },
+            _deletePupil(event){
+                console.log(event.detail);
+            }
+        });
+    </script>
+</dom-module>

@@ -1,0 +1,24 @@
+<script>
+    window.TestBehaviors = window.TestBehaviors || {};
+    TestBehaviors.Component1 = {
+        properties: {
+            name: {
+                type: String,
+                value: 'Vlairner',
+                notify: true
+            },
+            lastName: {
+                type: String,
+                value: 'Palacios'
+            }
+        },
+        listeners: {
+            'click': '_doSomething'
+        },
+        _doSomething() {
+            this.$.nombre.textContent = this.name.toLowerCase();
+            this.$.apellido.textContent = this.lastName.toLowerCase();
+        }
+    }
+
+</script>

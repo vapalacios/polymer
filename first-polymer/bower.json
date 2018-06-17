@@ -1,0 +1,20 @@
+{
+  "name": "hello-world",
+  "authors": [
+    "Vlairner Palacios <vlairner.palacios@gmail.com>"
+  ],
+  "description": "primer componente polymer",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "1.9.3"
+  }
+}

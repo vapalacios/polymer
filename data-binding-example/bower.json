@@ -1,0 +1,20 @@
+{
+  "name": "data binding example",
+  "authors": [
+    "pablo.hidalgo <pablo.hidalgo@bbva.com>"
+  ],
+  "description": "data binding example",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "1.9.3"
+  }
+}

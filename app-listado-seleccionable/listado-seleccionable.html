@@ -1,0 +1,66 @@
+<link rel="import" href="listado-seleccionable-item.html">
+
+<dom-module id="listado-seleccionable">
+    <template>
+        <style include="listado-seleccionable-shared-styles"></style>
+        <div>
+            <h1>[[header]]</h1>
+            <h2>[[subHeader]]</h2>
+        </div>
+        <template is="dom-repeat" items="[[items]]">
+            <listado-seleccionable-item title="[[item.title]]" sub-title="[[item.subTitle]]" info-title="[[item.infoTitle]]" info-sub-title="[[item.infoSubTitle]]" on-tap="_fireCollapse" opened="[[_isOpen(index, indexSelected)]]"></listado-seleccionable-item>
+        </template>
+        <template is="dom-if" if="[[buttonText]]">
+            <div>
+                <button disabled$="[[!disabled]]">[[buttonText]]</button>
+            </div>
+        </template>
+    </template>
+    <script>
+        Polymer({
+            is: "listado-seleccionable",
+            properties: {
+                header: {
+                    type: String,
+                    value: ""
+                },
+                subHeader: {
+                    type: String,
+                    value: ""
+                },
+                items: {
+                    type: Array,
+                    value: []
+                },
+                buttonText: {
+                    type: String,
+                    value: ""
+                },
+                opened: {
+                    type: Boolean,
+                    value: false,
+                    computed: "_isOpen(index, indexSelected)"
+                },
+                indexSelected: {
+                    type: Number,
+                    value: null
+                },
+                disabled: {
+                    type: Boolean,
+                    value: false,
+                    computed: '_isThereSelecting(indexSelected)'
+                }
+            },
+            _fireCollapse: function(event) {
+                this.indexSelected = this.indexSelected == event.model.index ? null : event.model.index;
+            },
+            _isOpen: function(index, selected) {
+                return selected == index;
+            },
+            _isThereSelecting: function(indexSelected) {
+                return indexSelected != null;
+            }
+        });
+
+    </script>
+</dom-module>

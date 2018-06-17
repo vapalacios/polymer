@@ -1,0 +1,86 @@
+<link rel="import" href="bower_components/slate-font-awesome/slate-font-awesome.html">
+
+<dom-module id="toolbar-item">
+    <template>
+        <style include="slate-font-awesome">
+            li {
+                float: var(--toolbar-item-float, var(--default-float, left));
+                
+                @apply --toolbar-item-li;
+            }
+
+            li a {
+                display: var(--toolbar-item-display, var(--default-display, block));
+                
+                color: var(--toolbar-item-display, var(--default-display, white));
+                
+                text-align: var(--toolbar-item-text-align, var(--default-text-align, center));
+                
+                padding: var(--toolbar-item-padding, var(--default-padding, 14px 16px));
+                
+                text-decoration: var(--toolbar-item-text-decoration, var(--default-text-decoration, none));
+                
+                width: var(--toolbar-item-width, var(--default-width, 149px));
+                
+                height: var(--toolbar-item-height, var(--default-height, 75px));
+                
+                transition: var(--toolbar-item-transition, var(--default-transition, all 0.3s ease));
+                
+                @apply --toolbar-item-li-a;
+            }
+
+            li a:hover {
+                opacity: var(--toolbar-item-opacity, var(--default-opacity, 0.4));
+                
+                @apply --toolbar-item-li-opacity;
+            }
+            
+            .active {
+                background-color: var(--toolbar-item-background-color, var(--default-background-color, #4CAF50));
+                
+                transition: var(--toolbar-item-transition, var(--default-transition, all 0.3s ease));
+                
+                @apply --toolbar-item-active;
+            }
+            
+            img{
+                width: var(--toolbar-item-img-width, var(--default-img-width, 75px));
+                
+                @apply --tooblar-item-img;
+            }
+        </style>
+        <li class$="[[classActive]]" >
+            <a href="#home">
+                <i class$="[[icon]]"></i>
+                <img src="[[imageUrl]]" alt="[[imageAlt]]">[[text]]
+            </a>
+        </li>
+    </template>
+    <script>
+        Polymer({
+            is: "toolbar-item",
+            properties: {
+                text: {
+                    type: String,
+                    value: ""
+                },
+                icon: {
+                    type: String,
+                    value: ""
+                },
+                imageUrl: {
+                    type: String,
+                    value: ""
+                },
+                imageAlt: {
+                    type: String,
+                    value: ""
+                },
+                classActive: {
+                    type: String,
+                    value: ""
+                }
+            }
+        });
+    </script>
+</dom-module>

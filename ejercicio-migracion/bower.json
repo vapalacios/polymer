@@ -1,0 +1,20 @@
+{
+  "name": "migracion",
+  "authors": [
+    "Vlairner Palacios <vlairner.palacios@gmail.com>"
+  ],
+  "description": "migracion content a slot",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "1.9.3"
+  }
+}

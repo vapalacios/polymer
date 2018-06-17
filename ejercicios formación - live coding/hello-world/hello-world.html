@@ -1,0 +1,39 @@
+<dom-module id="hello-world">
+  <template>
+    <style>
+    </style>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'hello-world',
+      properties: {
+        title: {
+          type: String,
+          reflectToAttribute: true
+        },
+        secondTitle: {
+          type: String
+        },
+        fullTitle: {
+          type: String,
+          computed: '_computeFullTitle(title, secondTitle)'
+        }
+      },
+      observers: [
+        '_titleChanged(title, secondTitle)'
+      ],
+      _titleChanged: function(title, secondTitle) {
+        console.log('Observer _titleChanged called - title: ' + title);
+        console.log('Observer _titleChanged called - second title: ' + secondTitle);
+      },
+      updateTitle: function() {
+        this.title = 'TITULO ACTUALIZADO';
+      },
+      _computeFullTitle: function(title, secondTitle) {
+        console.log('_computeFullTitle')
+        return 'TITLE: ' + title + ', SECOND TITLE: ' + secondTitle;
+      }
+    });
+  </script>
+</dom-module>

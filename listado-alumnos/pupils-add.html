@@ -1,0 +1,100 @@
+<link rel="import" href="bower_components/slate-font-awesome/slate-font-awesome.html">
+<link rel="import" href="pupils-button.html">
+<link rel="import" href="pupils-notes.html">
+
+<dom-module id="pupils-add">
+    <template>
+        <style include="slate-font-awesome">
+
+            .w3-round {
+                border-radius: 4px;
+            }
+
+            img {
+                margin-bottom: -5px;
+                border-style: none;
+                width: 20%;
+            }
+            
+            div{
+                display: inline-block;
+            }
+
+        </style>
+        <template is="dom-if" if="[[pupil]]">
+            <h2>Crear Alumno</h2>
+            <div>
+                <div>
+                    <input placeholder="Ingrese el url foto" value="{{picture::input}}"/>
+                </div>
+                <div>
+                    <input placeholder="Ingrese el nombre" value="{{name::input}}"/>
+                </div>
+                <div>
+                    <input placeholder="Ingrese el apellido" value="{{lastName::input}}"/>
+                </div>
+                <div>
+                    <i class="fa fa-plus-square" on-tap="_addNote"></i>
+                </div>
+                <div>
+                    <pupils-notes include="[[add]]" notes="{{notes}}"></pupils-notes>
+ 
+                </div>
+                <div>
+                    <pupils-button on-tap="_savePupils" button-name="[[action]]"></pupils-button>
+                </div>
+            </div>
+        </template>
+    </template>
+    <script>
+        Polymer({
+            is: "pupils-add",
+            properties: {
+                name: {
+                    type: String,
+                    value: ""
+                },
+                lastName: {
+                    type: String,
+                    value: ""
+                },
+                picture: {
+                    type: String,
+                    value: ""
+                },
+                notes: {
+                    type: Array,
+                    value: []
+                },
+                newPupil: {
+                    type: Object,
+                    value: {}
+                },
+                pupil: {
+                    type: Boolean,
+                    value: false
+                },
+                action: {
+                    type: String,
+                    value: "save"
+                },
+                add: {
+                    type: Boolean,
+                    value: true
+                }
+            },
+            _savePupils: function(){
+                this.set('newPupil.name', this.name);
+                this.set('newPupil.lastName', this.lastName);
+                this.set('newPupil.picture', this.picture);
+                this.set('newPupil.notes', this.notes);
+                this.fire(this.action, this.newPupil);
+                this.set("newPupil", {});
+            },
+            _addNote: function(){
+                this.add = true;
+                this.push('notes', []);
+            }
+        });
+    </script>
+</dom-module>

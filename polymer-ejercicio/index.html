@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script>
+        // Global Polymer settings
+        window.Polymer = {
+            dom: 'shadow',
+            lazyRegister: 'max',
+            useNativeCSSProperties: true
+        };
+
+    </script>
+    <link rel="import" href="bower_components/polymer/polymer.html">
+    <link rel="import" href="first-component.html">
+    <script>
+        let components = null;
+        window.onload = function() {
+            components = document.querySelectorAll("first-component");
+              
+            // el selector para agregar un listener es el siguiente: nombre completo de la propiedad al estilo html, ejemplo en el dom lastName, listener: last-name más el sufijo agregado por polymer change, last-name-change
+            components[0].addEventListener("last-name-changed", function(event) {
+                console.warn("Dato Mi Listener Recibido: " + event.detail.value);
+            });
+            
+            components[1].addEventListener("last-name-changed", function(event) {
+                console.warn("Mi Listener Recibido: " + event.detail.value);
+            });
+            
+            components[0]._setName("Vlairner");
+            components[0]._updateLastName("Palacios");
+            
+            components[1]._setName("Willi");
+            components[1]._updateLastName("Palacios Williams");
+        };
+
+    </script>
+</head>
+
+<body>
+    <first-component></first-component>
+    <hr/>
+    <first-component></first-component>
+</body>
+
+</html>

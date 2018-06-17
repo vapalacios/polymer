@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script>
+        // Global Polymer settings
+        window.Polymer = {
+            dom: 'shadow',
+            lazyRegister: 'max',
+            useNativeCSSProperties: true
+        };
+
+    </script>
+    <link rel="import" href="bower_components/polymer/polymer.html">
+    <link rel="import" href="hello-world.html">
+    <style>
+        p {
+            background-color: antiquewhite;
+        }
+
+    </style>
+</head>
+
+<body>
+    <p>
+        prueba shadow
+    </p>
+    <hello-world></hello-world>
+    <hr/>
+    <hello-world title="Segundo Titulo" second-title="Prueba"></hello-world>
+</body>
+
+</html>

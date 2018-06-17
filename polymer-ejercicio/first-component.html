@@ -1,0 +1,66 @@
+<dom-module id="first-component">
+    <template>
+        <style>
+            #nombre{
+                background-color: beige;
+            }
+            #apellido{
+                background-color: aquamarine;
+            }
+            #full{
+                background-color: azure;
+            }
+        </style>
+        <p id="nombre">
+            {{name}}
+        </p>
+        <hr/>
+        <p id="apellido">
+            {{lastName}}
+        </p>
+        <hr/>
+        <p id="full">
+            {{fullName}}
+        </p>
+    </template>
+    <script>
+        Polymer({
+            is: "first-component",
+            properties: {
+                name: {
+                    type: String,
+                    reflectToAttribute: true
+                },
+                lastName: {
+                    type: String,
+                    notify: true,
+                    readOnly: true
+                },
+                fullName: {
+                    type: String,
+                    computed: '_computedOutFullName(name, lastName)'
+                },
+                created: function(){
+                    console.log(this.localName + '#' + this.id + ' was created');
+                }
+            },
+            _computedOutFullName: function(name, lastName) {
+                return 'Mi nombre completo es: ' + name +' ' + lastName;
+            },
+            observers: [
+                '_fullNameUpdated(name, lastName)'
+            ],
+            _fullNameUpdated: function(name, lastName) {
+                console.log("Nombre: " + name);
+                console.log("Apellido: " + lastName);
+            },
+            _setName: function(str) {
+                this.name = str;
+            },
+            _updateLastName: function(str) {
+                this._setLastName(str);
+            }
+        });
+
+    </script>
+</dom-module>

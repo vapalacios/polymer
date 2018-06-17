@@ -1,0 +1,24 @@
+<dom-module id="style-component-shared-styles">
+    <template>
+        <style>
+             :host {
+                display: block;
+            }
+
+             :host(.upper-case) {
+                text-transform: uppercase;
+            }
+
+             :host(.lower-case) {
+                text-transform: lowercase;
+            }
+
+             :host(.shadow) {
+                position: relative;
+                box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+                padding: 10px;
+                background: white;
+            }
+        </style>
+    </template>
+</dom-module>

@@ -1,0 +1,15 @@
+<link rel="import" href="behavior1-element.html">
+<link rel="import" href="behavior2-element.html">
+
+<script>
+    window.TestBehaviors = window.TestBehaviors || {};
+    TestBehaviors.ExtendIt = {
+        _doSomething() {
+            this.$.nombre.textContent = this.name.toUpperCase();
+            this.$.apellido.textContent = this.lastName.toUpperCase();
+        }
+    }
+    
+    TestBehaviors.ExtendItAll = [TestBehaviors.Component1, TestBehaviors.Component2, TestBehaviors.ExtendIt];
+
+</script>

@@ -1,0 +1,44 @@
+<link rel="import" href="./my-special-component.html">
+<link rel="import" href="./main-component-b.html">
+<link rel="import" href="./main-component-c.html">
+
+<dom-module id="main-component">
+  <template>
+    <my-special-component id="mySpecialComponent"></my-special-component>
+
+    <my-special-component id="mySpecialComponent2"></my-special-component>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'main-component',
+      properties: {
+
+      },
+      listeners: {
+        'mySpecialComponent2.button-pressed': '_handleSpecialClick'
+      },
+      // attached: function() {
+      //   this.listen(this.$.mySpecialComponent2, 'button-pressed', '_handleSpecialClick');
+      // },
+      // detached: function() {
+      //   this.unlisten(this.$.mySpecialComponent2, 'button-pressed', '_handleSpecialClick');
+      // },
+      _handleSpecialClick: function(e) {
+        console.log('special clicked');
+        console.log(e);
+      },
+      _handleClick: function(e) {
+        console.log('clicked');
+        console.log(e);
+      },
+      fakeCalculation: function(value1, value2) {
+        var resultB = this.$.componentB.calculate(value1);
+        var resultC = this.$.componentC.calculate(value1);
+
+        console.log(resultB);
+        console.log(resultC);
+      }
+    });
+  </script>
+</dom-module>

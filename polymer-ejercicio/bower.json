@@ -1,0 +1,20 @@
+{
+  "name": "ejercicio1",
+  "authors": [
+    "Vlairner Palacios <vlairner.palacios@gmail.com>"
+  ],
+  "description": "componente",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "1.9.3"
+  }
+}

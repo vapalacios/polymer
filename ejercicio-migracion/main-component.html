@@ -1,0 +1,46 @@
+<link rel="import" href="style-component.html">
+
+
+<dom-module id="main-component">
+    <template>
+        <style>
+            style-component#first{
+                --style-component-header-font-size: 40px;
+                --style-component-div-font-size: 20px;
+                --style-component-footer-font-size: 12px;
+                --style-component-header:{
+                    font-family: cursive;
+                    color: white;
+                    text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+                };
+            }
+            
+            style-component#second{
+                --style-component-header-font-size: 60px;
+                --style-component-div-font-size: 20px;
+                --style-component-footer-font-size: 12px;
+            }
+            
+            style-component#third{
+                --style-component-div-font-size: 20px;
+            }
+        </style>
+        <style-component id="first">
+            <header slot="header">Polymer</header>
+            <div slot="contenido">Clase de styling, super chido!!!</div>
+            <footer slot="footer">footer style</footer>
+        </style-component>
+        <hr/>
+        <style-component id="second" class="shadow">
+            <header slot="header">Polymer 2.0</header>
+        </style-component>
+        <hr/>
+        <style-component id="third" default="Esto es una prueba"></style-component>
+    </template>
+    <script>
+        Polymer({
+            is: "main-component"
+        });
+
+    </script>
+</dom-module>

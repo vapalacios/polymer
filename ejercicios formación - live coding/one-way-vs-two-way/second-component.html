@@ -1,0 +1,26 @@
+<dom-module id="second-component">
+  <template>
+    <h1>second-component</h1>
+
+    title: [[title]]
+
+    ----
+
+    [[title]]
+  </template>
+
+  <script>
+    Polymer({
+      is: 'second-component',
+      properties: {
+        title: {
+          type: String,
+          notify: true
+        }
+      },
+      update: function(newTitle) {
+        this.title = newTitle;
+      }
+    });
+  </script>
+</dom-module>

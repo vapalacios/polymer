@@ -1,0 +1,51 @@
+<link rel="import" href="./second-component.html">
+
+<dom-module id="main-component">
+  <template>
+    <h1>main-component</h1>
+
+    <p>
+      [[title]]
+    </p>
+
+    <second-component title="{{title}}"></second-component>
+
+    <hr/>
+
+    <input type="radio" checked$="{{checked}}"></input>
+
+    <hr/>
+
+    ReadOnly:
+    {{description}}
+  </template>
+
+  <script>
+    Polymer({
+      is: 'main-component',
+      properties: {
+        title: {
+          type: String
+        },
+        checked: {
+          type: Boolean,
+          value: false
+        },
+        description: {
+          type: String
+        },
+        summary: {
+          type: String,
+          readOnly: true
+        }
+      },
+      updateDescription: function(newDescription, newSummary) {
+        // this._setDescription(newDescription);
+        // this._setSummary(newSummary);
+      },
+      updateCheck: function(newValue) {
+        this.checked = newValue;
+      }
+    });
+  </script>
+</dom-module>

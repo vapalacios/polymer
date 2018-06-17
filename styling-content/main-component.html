@@ -1,0 +1,40 @@
+<link rel="import" href="style-component.html">
+
+
+<dom-module id="main-component">
+    <template>
+        <style>
+            style-component#first{
+                --style-component-header-font-size: 40px;
+                --style-component-div-font-size: 20px;
+                --style-component-footer-font-size: 12px;
+                --style-component-header:{
+                    font-family: cursive;
+                };
+            }
+            
+            style-component#second{
+                --style-component-header-font-size: 60px;
+                --style-component-div-font-size: 20px;
+                --style-component-footer-font-size: 12px;
+            }
+        </style>
+        <style-component id="first">
+            <header>Polymer</header>
+            <div>Clase de styling, super chido!!!</div>
+            <footer>footer style</footer>
+        </style-component>
+        <hr/>
+        <style-component id="second" class="shadow">
+            <header>Polymer 2.0</header>
+        </style-component>
+        <hr/>
+        <style-component id="third"></style-component>
+    </template>
+    <script>
+        Polymer({
+            is: "main-component"
+        });
+
+    </script>
+</dom-module>

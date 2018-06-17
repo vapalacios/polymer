@@ -1,0 +1,64 @@
+<dom-module id="hello-world">
+    <template>
+        <style>
+            /* CSS rules for your element */
+            p{
+                background-color: gray;
+            }
+        </style>
+        <!-- local DOM for your element -->
+        Double binding
+        <p>
+            {{title}}
+<!--            Esto es una prueba de Custom Element. Hello world component.-->
+        </p>
+        Simple binding
+        <p>
+            [[title]]
+        </p>
+        <hr/>
+        Second title: {{secondTitle}}
+        <hr/>
+        Computed: {{fullTitle}}
+    </template>
+    <script>
+        // element registration
+        Polymer({
+            is: 'hello-world',
+            properties: {
+                // title-changed  evento lanzado, por defecto no se lanza ninguno
+                title: {
+                    type: String,
+                    //                    value: function() {
+                    //                        return 'Titulo';
+                    //                    },
+                    //readOnly: true
+
+                    // permite emitir eventos en el componente creado, por defecto es false
+                    notify: true
+                },
+                secondTitle: {
+                    type: String,
+                    notify: true
+                },
+                fullTitle: {
+                    type: String,
+                    computed: '_computedFullTitle(title, secondTitle)'
+                }
+            },
+            observers: [
+                '_titleChanged(title)'
+            ],
+            _titleChanged(title){
+                console.log("observer _titleChanged called  " + title);  
+            },
+            updateTitle: function() {
+                this.title = 'Titulo Actualizado';
+            },
+            _computedFullTitle: function(title, secondTitle) {
+                return 'First Title ' + title + ' Second ' + secondTitle;
+            }
+        });
+
+    </script>
+</dom-module>

@@ -1,0 +1,66 @@
+<link rel="import" href="toolbar-item.html">
+
+<dom-module id="app-toolbar">
+    <template>
+        <style include="app-toolbar-shared-styles">
+            ul {
+                list-style-type: var(--app-toolbar-list-style-type, var(--app-toolbar-list-style-type, none));
+                
+                margin: var(--app-toolbar-margin, var(--default-margin, 0));
+                
+                padding: var(--app-toolbar-padding, var(--default-padding, 0));
+                
+                overflow: var(--app-toolbar-overflow, var(--default-overflow, hidden));
+                
+                background-color: var(--app-toolbar-ul-background-color, var(--default-ul-background-color, #333));
+                
+                @apply --app-toolbar-ul;
+            }
+        </style>
+        <ul>
+            <template is="dom-repeat" items="[[tools]]">
+                <toolbar-item text="[[item.text]]" icon="[[item.icon]]" image-url="[[item.imageUrl]]" image-alt="[[item.imageAlt]]" class-active="[[_isActive(item.selected, index, indexSelected)]]" on-tap="_fireSelected"></toolbar-item>
+            </template>
+        </ul>
+    </template>
+    <script>
+        Polymer({
+            is: "app-toolbar",
+            properties: {
+                allowMultipleSelection: {
+                    type: Boolean,
+                    value: false
+                },
+                tools: {
+                    type: Array,
+                    value: []
+                },
+                indexSelected: {
+                    type: Number,
+                    value: null
+                }
+            },
+            _fireSelected: function(event) {
+                if (this.allowMultipleSelection) {
+                    event.model.set('item.selected', !event.model.item.selected);
+                } else {
+                    this.indexSelected = this.indexSelected == event.model.index ? null : event.model.index;
+                }
+            },
+            _isActive: function(item, index, indexSelected) {
+                let result = "";
+                
+                if(this.allowMultipleSelection && item){
+                    result = "active";
+                }
+                
+                if(index == indexSelected){
+                    result = "active";
+                }
+             
+                return result;
+            }
+        });
+
+    </script>
+</dom-module>

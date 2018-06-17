@@ -1,0 +1,90 @@
+<link rel="import" href="./element-a.html">
+
+<dom-module id="data-binding-sample">
+  <template>
+    <style></style>
+
+    <p>Value: [[value]]</p>
+
+    <hr/>
+
+    <p>singleObject.text: [[singleObject.text]]</p>
+
+    <hr/>
+
+    <p>Items:
+      <template is="dom-repeat" items=[[items]]>
+        {{item}}
+      </template>
+  </p>
+
+  <p>Computed length: [[computedLength]]</p>
+
+  <hr/>
+
+  <template is="dom-if" if=[[oneWay]]>
+      <p>One way</p>
+      <element-a value=[[value]] items=[[items]] single-object=[[singleObject]]></element-a>
+
+      <hr/>
+    </template>
+
+  <template is="dom-if" if=[[!oneWay]]>
+      <p>Two way</p>
+      <element-a value={{value}} items={{items}} single-object={{singleObject}}></element-a>
+    </template>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'data-binding-sample',
+      properties: {
+        value: {
+          type: String,
+          value: 'initial value'
+        },
+        items: {
+          type: Array,
+          value: function() {
+            return [];
+          }
+        },
+        singleObject: {
+          type: Object,
+          value: function() {
+            return {};
+          }
+        },
+        oneWay: {
+          type: Boolean,
+          value: false
+        },
+        computedLength: {
+          type: Number,
+          value: 0,
+          computed: '_calculateItemsLength(items)'
+          //computed: '_calculateItemsLength(items, items.length)'
+          //propiedad que sólo se volverá a calcular si cambiamos la referencia del array.
+          //o bien, generamos una dependencia a un campo que sí variará.
+        }
+      },
+      changeValue: function(newValue) {
+        this.set('value', newValue);
+      },
+      pushItem: function() {
+        var newValue = Math.floor((Math.random() * 9999) + 1);
+
+        this.push('items', newValue);
+      },
+      changeObjectText: function(newValue) {
+        this.set('singleObject.text', newValue)
+      },
+      _calculateItemsLength: function(items) {
+        console.log('data-binding-sample::_calculateItemsLength();');
+
+        return items.length;
+      }
+    });
+  </script>
+</dom-module>

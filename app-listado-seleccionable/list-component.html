@@ -1,0 +1,32 @@
+<link rel="import" href="listado-seleccionable.html">
+
+<dom-module id="list-component">
+    <template>
+        <style></style>
+        <listado-seleccionable header="Mi Listado" sub-header="List" button-text="Aceptar" items="[[items]]" id="lista"></listado-seleccionable>
+    </template>
+    <script>
+        Polymer({
+            is: "list-component",
+            properties: {
+                items: {
+                    type: Array,
+                    value: function(){
+                        return [
+                            {
+                                title: "Titulo1", subTitle: "Subtitulo1",
+                                infoTitle: "Info title",
+                                infoSubTitle: "sub Info"
+                            },
+                            {
+                                title: "Titulo2", subTitle: "Subtitulo2",
+                                infoTitle: "Info title",
+                                infoSubTitle: "sub Info"
+                            } 
+                        ]
+                    }
+                }
+            }
+        });
+    </script>
+</dom-module>

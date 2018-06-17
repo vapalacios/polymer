@@ -1,0 +1,21 @@
+{
+  "name": "toolbar",
+  "authors": [
+    "Vlairner Palacios <vlairner.palacios@gmail.com>"
+  ],
+  "description": "barra de herramientas",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "1.9.3",
+    "slate-font-awesome": "^4.7.3"
+  }
+}

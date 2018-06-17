@@ -1,0 +1,55 @@
+<link rel="import" href="app-toolbar.html">
+
+<dom-module id="toolbar-mock">
+    <template>
+        <style include="app-toolbar-shared-styles"></style>
+        <div>
+            Single
+            <app-toolbar tools="[[tools]]"></app-toolbar>
+        </div>
+        <div>
+            Multiple
+            <app-toolbar tools="[[tools]]" allow-multiple-selection></app-toolbar>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            is: "toolbar-mock",
+            properties: {
+                tools: {
+                    type: Array,
+                    value: function(){
+                        return [{
+                            text: "Tablet",
+                            icon: "fa fa-tablet",
+                            imageUrl: "img/tablet.png",
+                            imageAlt: "home",
+                            selected: false
+                        },
+                        {
+                            text: "Map",
+                            icon: "fa fa-street-view",
+                            imageUrl: "img/maps.png",
+                            imageAlt: "street",
+                            selected: false
+                        },
+                        {
+                            text: "Tachuela",
+                            icon: "fa fa-thumb-tack",
+                            imageUrl: "img/tachuela.png",
+                            imageAlt: "tack",
+                            selected: false
+                        },
+                        {
+                            text: "Note",
+                            icon: "fa fa-sticky-note-o",
+                            imageUrl: "img/notas.png",
+                            imageAlt: "note",
+                            selected: false
+                        }];
+                    }
+                }
+            }
+        });
+    </script>
+</dom-module>

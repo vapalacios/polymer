@@ -1,0 +1,84 @@
+<dom-module id="dom-helper">
+  <template>
+    <template is="dom-repeat" items="{{filteredAccounts}}" as="account">
+      <p>
+        Account Name: [[account.name]]
+      </p>
+
+      <p>
+        Account Balance: [[account.balance]] EUR
+      </p>
+
+      <hr/>
+    </template>
+
+  <template is="dom-if" if="{{!hasAccounts}}">
+    ¡No tenemos cuentas para mostrar!
+    </template>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'dom-helper',
+      properties: {
+        accounts: {
+          type: Array,
+          value: function() {
+            return [{
+                name: 'Cuenta Azul BBVA',
+                balance: 1.500
+              },
+              {
+                name: 'Cuenta Empleado',
+                balance: 10500
+              },
+              {
+                name: 'Cuenta Virtual',
+                balance: 0
+              },
+              {
+                name: 'Cuenta Ahorro',
+                balance: -1000
+              }
+            ];
+          }
+        },
+        filteredAccounts: {
+          type: Array,
+          computed: 'computeAccountsToFilter(accounts)'
+        },
+        hasAccounts: {
+          type: Boolean,
+          computed: 'computeAccounts(filteredAccounts)'
+        }
+      },
+      computeAccountsToFilter: function(accounts) {
+        var richAccounts = accounts.filter(function(account) {
+          return this._shouldShowRichAccounts(account);
+        }.bind(this));
+
+        return richAccounts;
+      },
+      _shouldShowAccount: function(account) {
+        return account.balance >= 0;
+      },
+      _shouldShowRichAccounts: function(account) {
+        return account.balance >= 15000;
+      },
+      computeAccounts: function(filteredAccounts) {
+        return filteredAccounts.length > 0;
+      },
+      computeAccountsComplex: function(accounts) {
+        // console.log('computeAccounts called');
+        // return true;
+        var richAccounts = accounts.filter(function(account) {
+          return this._shouldShowRichAccounts(account);
+        }.bind(this));
+
+        console.log(richAccounts);
+
+        return richAccounts.length > 0;
+      }
+    });
+  </script>
+</dom-module>

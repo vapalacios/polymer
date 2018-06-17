@@ -1,0 +1,28 @@
+<link rel="import" href="behavior-extend.html">
+
+<dom-module id="behavior1-component">
+    <template>
+      <style>
+        div{
+            background-color: thistle;
+            cursor: pointer;
+            margin: 10px 0px 10px 0px;
+            border-radius: 10px 10px 10px 10px;
+            border: 0px solid #000000;
+            width: 50%;
+        }
+    </style>
+        <h1>Componente 1</h1>
+        <div>
+            <p id="nombre">[[name]]</p>
+            <p id="apellido">[[lastName]]</p>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            is: 'behavior1-component',
+            behaviors: [TestBehaviors.ExtendItAll]
+        });
+
+    </script>
+</dom-module>

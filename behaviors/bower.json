@@ -1,0 +1,23 @@
+{
+  "name": "comportamientos",
+  "authors": [
+    "Vlairner Palacios <vlairner.palacios@gmail.com>"
+  ],
+  "description": "practica de behaviors",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "1.9.3"
+  },
+  "devDependencies": {
+    "web-component-tester": "^6.0.0"
+  }
+}
